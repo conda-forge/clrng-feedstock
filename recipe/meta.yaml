@@ -21,12 +21,7 @@ build:
 {% if OSX_VARIANT != "native" %}
   skip: True  # [not osx]
 {% else %}
-  #############################################################
-  # Skip Visual Studio 2015 32-bit builds due to a bug.       #
-  #                                                           #
-  # xref: https://github.com/clMathLibraries/clRNG/issues/11  #
-  #############################################################
-  skip: True  # [(win and py35) or (win32 and py36)]
+  skip: True  # [win and py35]
 {% endif %}
 
   features:
