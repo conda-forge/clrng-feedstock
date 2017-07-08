@@ -22,7 +22,7 @@ source:
     - VC14_32bit.diff
 
 build:
-  number: 0
+  number: 1
   script_env:
     - OSX_VARIANT
 
