@@ -12,21 +12,24 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/clMathLibraries/{{ name }}/archive/v{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    ##############################################################
+    # Fixes an issue where `_mm_set_epi64x` is already defined   #
+    # in Windows 32-bit's VC 2015.                               #
+    #                                                            #
+    # xref: https://github.com/clMathLibraries/clRNG/pull/15     #
+    ##############################################################
+    - VC14_32bit.diff
 
 build:
-  number: 0
+  number: 1
   script_env:
     - OSX_VARIANT
 
 {% if OSX_VARIANT != "native" %}
   skip: True  # [not osx]
 {% else %}
-  #############################################################
-  # Skip Visual Studio 2015 32-bit builds due to a bug.       #
-  #                                                           #
-  # xref: https://github.com/clMathLibraries/clRNG/issues/11  #
-  #############################################################
-  skip: True  # [(win and py35) or (win32 and py36)]
+  skip: True  # [win and py35]
 {% endif %}
 
   features:
